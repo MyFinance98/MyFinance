@@ -1,23 +1,21 @@
-# My Finance — PWA
+# My Finance — PWA 2.0
 
-Aplicação web progressiva (PWA) para acompanhar o plano financeiro de seis meses.
+Aplicação web progressiva (PWA) para acompanhar o plano financeiro familiar de seis meses.
 
 ## Funcionalidades
-- Capital mensal editável
-- Distribuição automática: Segurança 35%, Investimentos 20%, Novas oportunidades 20%, Fundo familiar 15%, Poupança pessoal 10%
-- Registo de até seis contribuições mensais
-- Gráfico circular, tabela e histórico
-- Dados guardados localmente no navegador (`localStorage`)
-- Exportação CSV e cópia de segurança JSON
-- Instalação no ecrã principal e utilização offline após primeira visita
+- Capital mensal base editável e distribuição automática: Segurança 35%, Investimentos 20%, Novas oportunidades 20%, Fundo familiar / Filho 15%, Poupança pessoal 10%.
+- Aba **Entradas extra**: adicione rendimentos assim que os receber. São distribuídos imediatamente pelos cinco fundos e não exigem fechar o mês.
+- Registo de até seis contribuições mensais. As entradas extra são contabilizadas no relatório do período e não são duplicadas ao registar a contribuição mensal.
+- Aba **Documentos**: guardar PDFs e imagens até 10 MB cada, com descrição e associação geral/entrada extra/contribuição mensal. O arquivo usa IndexedDB no navegador.
+- Relatório detalhado exportável em PDF.
+- Gráfico, tabela, histórico, cópia de segurança JSON e instalação PWA.
 
-## Publicar gratuitamente com GitHub Pages
-1. Crie uma conta em https://github.com, se ainda não tiver.
-2. Crie um repositório público chamado `my-finance`.
-3. Carregue os quatro ficheiros desta pasta (`index.html`, `manifest.webmanifest`, `sw.js`, `icon.svg`) para a raiz do repositório.
-4. Em **Settings → Pages**, escolha **Deploy from a branch**, selecione `main` e `/ (root)`, e guarde.
-5. Aguarde a publicação. O GitHub mostrará um endereço HTTPS semelhante a `https://SEU_UTILIZADOR.github.io/my-finance/`.
-6. No Xiaomi, abra esse endereço no Chrome → menu ⋮ → **Adicionar ao ecrã principal** ou **Instalar aplicação**.
+## Atualizar no GitHub Pages
+1. Abra o repositório `my-finance`.
+2. Substitua os ficheiros `index.html`, `sw.js` e `README.md` pelos desta versão (pode manter `manifest.webmanifest` e `icon.svg`).
+3. Confirme as alterações na branch `main`.
+4. Aguarde a publicação do GitHub Pages.
+5. No Xiaomi, feche a aplicação instalada e volte a abri-la. Se continuar a mostrar a versão antiga, abra a página no Chrome, atualize-a e limpe os dados/cache do site ou remova e instale novamente a PWA.
 
-## Nota importante
-O projeto ainda não está publicado na Internet. O ZIP contém os ficheiros necessários para publicação. Os dados ficam no dispositivo e navegador usados; limpar os dados do navegador pode apagá-los. Use **Guardar cópia JSON** regularmente. Não existe sincronização na nuvem nem autenticação nesta versão.
+## Armazenamento e privacidade
+Os dados financeiros ficam em `localStorage` e os documentos em `IndexedDB`, apenas neste navegador/dispositivo. Não existe sincronização na nuvem nem autenticação nesta versão. Limpar os dados do site pode apagar os registos e documentos. Faça cópias de segurança JSON regularmente. O PDF é gerado no próprio dispositivo.
