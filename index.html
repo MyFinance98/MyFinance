@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#080b0a">
+<meta name="description" content="Gestão financeira familiar: cinco fundos, contribuições mensais e objetivos de seis meses.">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<title>My Finance</title>
+<style>
+:root{color-scheme:dark;--bg:#080b0a;--panel:#111a14;--line:#29332c;--muted:#a1a1aa;--green:#20d879;--teal:#0d9488;--blue:#3b82f6;--amber:#f59e0b;--pink:#ec4899;--purple:#8b5cf6}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:#f8fafc;font:15px system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:env(safe-area-inset-top) 14px env(safe-area-inset-bottom)}
+main{max-width:760px;margin:auto;padding:20px 0 40px}.top{display:flex;justify-content:space-between;align-items:center;gap:10px}.tag{font-size:11px;letter-spacing:.12em;color:var(--green);font-weight:800}.muted{color:var(--muted)}h1{font-size:29px;margin:12px 0 4px}h2{font-size:18px;margin:0 0 14px}.hero{font-size:clamp(30px,8vw,46px);font-weight:850;color:var(--green);letter-spacing:-.04em;margin:0 0 20px}.panel{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:16px;margin:14px 0}.field label{display:block;color:var(--muted);font-size:13px;margin-bottom:7px}.field input{width:100%;background:#080b0a;border:1px solid #3b493f;border-radius:12px;padding:13px;color:white;font-size:18px;outline:none}.field input:focus{border-color:var(--green)}.summary{display:flex;justify-content:space-between;gap:12px;align-items:end}.big{font-size:30px;font-weight:850;color:var(--green)}.progress{height:10px;background:#29332c;border-radius:99px;overflow:hidden;margin:10px 0}.progress>div{height:100%;background:var(--green);width:0;transition:width .2s}.row{display:flex;justify-content:space-between;gap:12px;align-items:center}.fund{padding:12px 0;border-bottom:1px solid var(--line)}.fund:last-child{border:0}.fundname{font-weight:700}.pct{font-weight:800}.bar{height:7px;background:#29332c;border-radius:99px;overflow:hidden;margin:8px 0}.bar span{display:block;height:100%;border-radius:99px}.small{font-size:12px;color:var(--muted)}button{border:0;border-radius:12px;padding:13px 16px;font-weight:800;font-size:14px;cursor:pointer}.primary{background:var(--green);color:#041109;width:100%;margin-top:12px}.secondary{background:#202b23;color:white;border:1px solid #3b493f}.danger{background:#321b1b;color:#ffb4b4;border:1px solid #673333}.actions{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:10px}.chartwrap{display:grid;grid-template-columns:minmax(170px,240px) 1fr;align-items:center;gap:18px}.donut{width:100%;max-width:230px;aspect-ratio:1;border-radius:50%;margin:auto;position:relative;background:conic-gradient(var(--teal) 0 35%,var(--blue) 35% 55%,var(--amber) 55% 75%,var(--pink) 75% 90%,var(--purple) 90% 100%)}.donut:after{content:"";position:absolute;inset:26%;background:var(--panel);border-radius:50%}.donutcenter{position:absolute;z-index:1;inset:0;display:grid;place-content:center;text-align:center;font-weight:800}.legend{display:grid;gap:8px}.legend div{display:flex;gap:8px;align-items:center;font-size:13px}.dot{width:10px;height:10px;border-radius:50%;flex:none}.tablewrap{overflow-x:auto}table{width:100%;border-collapse:collapse;min-width:480px;font-size:13px}th,td{text-align:right;padding:11px 7px;border-bottom:1px solid var(--line);white-space:nowrap}th:first-child,td:first-child{text-align:left}th{color:var(--muted);font-weight:700}.green{color:var(--green);font-weight:800}.history-item{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--line)}.note{font-size:12px;color:var(--muted);line-height:1.5}.empty{padding:22px;text-align:center;color:var(--muted);border:1px dashed #465248;border-radius:14px}
+@media(max-width:540px){.chartwrap{grid-template-columns:1fr}.donut{max-width:210px}.legend{grid-template-columns:1fr 1fr}.actions{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<main>
+ <div class="top"><span class="tag">GESTÃO FINANCEIRA FAMILIAR</span><span class="small">MY FINANCE · 1.0</span></div>
+ <h1>Capital mensal disponível</h1>
+ <p class="hero" id="heroAmount">CHF 5.758,00</p>
+ <section class="panel field">
+  <label for="monthly">Valor disponível este mês (CHF)</label>
+  <input id="monthly" type="number" min="0" step="0.01" value="5758" inputmode="decimal">
+  <p class="small">Introduza o valor que sobra depois das despesas e necessidades.</p>
+ </section>
+ <section class="panel">
+  <div class="summary"><div><div class="small">Capital total acumulado</div><div class="big" id="total">CHF 0,00</div></div><div class="small" id="monthCount">0 / 6 meses</div></div>
+  <div class="progress"><div id="progress"></div></div>
+  <div class="small" id="progressText">Ainda faltam 6 contribuições mensais.</div>
+ </section>
+ <section class="panel">
+  <h2>Distribuição mensal</h2>
+  <div id="funds"></div>
+ </section>
+ <section class="panel">
+  <h2>Gráfico de capital acumulado</h2>
+  <div class="chartwrap">
+   <div class="donut" id="donut"><div class="donutcenter"><span id="donutTotal">CHF 0</span><span class="small">ACUMULADO</span></div></div>
+   <div class="legend" id="legend"></div>
+  </div>
+ </section>
+ <section class="panel">
+  <h2>Tabela de acumulação</h2>
+  <div class="tablewrap"><table><thead><tr><th>Setor</th><th>%</th><th>Mensal</th><th>Acumulado</th></tr></thead><tbody id="tableBody"></tbody><tfoot id="tableFoot"></tfoot></table></div>
+ </section>
+ <section class="panel">
+  <h2>Registar contribuição mensal</h2>
+  <p class="small">Quando terminar o mês, registe o capital disponível. A aplicação acrescenta os valores aos fundos e atualiza o gráfico e a tabela.</p>
+  <button class="primary" id="addMonth">＋ Registar mês 1</button>
+  <div class="actions"><button class="secondary" id="export">Exportar CSV</button><button class="secondary" id="install" hidden>Instalar aplicação</button></div>
+ </section>
+ <section class="panel">
+  <h2>Histórico de contribuições</h2>
+  <div id="history" class="empty">Ainda não existem contribuições registadas.</div>
+ </section>
+ <p class="note">Os dados ficam guardados neste dispositivo e neste navegador. Esta versão não sincroniza automaticamente com outros dispositivos. Os valores não incluem juros, impostos ou ganhos/perdas de investimento. O fundo de emergência deve permanecer acessível e de baixo risco.</p>
+ <div class="actions"><button class="danger" id="reset">Reiniciar plano</button><button class="secondary" id="backup">Guardar cópia JSON</button></div>
+</main>
+<script>
+const funds=[
+ {id:'security',name:'Segurança',pct:35,color:'#0d9488'},
+ {id:'invest',name:'Investimentos',pct:20,color:'#3b82f6'},
+ {id:'opportunity',name:'Novas oportunidades',pct:20,color:'#f59e0b'},
+ {id:'family',name:'Fundo familiar / Filho',pct:15,color:'#ec4899'},
+ {id:'savings',name:'Poupança pessoal',pct:10,color:'#8b5cf6'}
+];
+const $=id=>document.getElementById(id);
+const money=n=>'CHF '+Number(n||0).toLocaleString('de-CH',{minimumFractionDigits:2,maximumFractionDigits:2});
+const initial=()=>({history:[],balances:Object.fromEntries(funds.map(f=>[f.id,0]))});
+let state=load();
+function load(){try{return JSON.parse(localStorage.getItem('myFinanceState'))||initial()}catch{return initial()}}
+function save(){localStorage.setItem('myFinanceState',JSON.stringify(state))}
+function monthly(){return Math.max(0,Number($('monthly').value)||0)}
+function total(){return funds.reduce((s,f)=>s+state.balances[f.id],0)}
+function render(){
+ const m=monthly(),t=total(),count=state.history.length;
+ $('heroAmount').textContent=money(m);$('total').textContent=money(t);$('donutTotal').textContent=money(t);
+ $('monthCount').textContent=count+' / 6 meses';$('progress').style.width=(Math.min(count,6)/6*100)+'%';
+ $('progressText').textContent=count>=6?'Objetivo de seis meses concluído!':`Faltam ${6-count} contribuições mensais.`;
+ $('funds').innerHTML=funds.map(f=>`<div class="fund"><div class="row"><span class="fundname">${f.name}</span><span class="pct" style="color:${f.color}">${f.pct}%</span></div><div class="row small"><span>Contribuição mensal</span><b>${money(m*f.pct/100)}</b></div><div class="bar"><span style="width:${f.pct}%;background:${f.color}"></span></div><div class="row small"><span>Já acumulado</span><b style="color:${f.color}">${money(state.balances[f.id])}</b></div></div>`).join('');
+ let start=0,stops=[];funds.forEach(f=>{let end=start+(t?state.balances[f.id]/t*100:0);stops.push(`${f.color} ${start}% ${end}%`);start=end});
+ $('donut').style.background=t?`conic-gradient(${stops.join(',')})`:'conic-gradient(#29332c 0 100%)';
+ $('legend').innerHTML=funds.map(f=>`<div><span class="dot" style="background:${f.color}"></span><span>${f.name} · ${f.pct}%</span></div>`).join('');
+ $('tableBody').innerHTML=funds.map(f=>`<tr><td>${f.name}</td><td>${f.pct}%</td><td>${money(m*f.pct/100)}</td><td><b>${money(state.balances[f.id])}</b></td></tr>`).join('');
+ $('tableFoot').innerHTML=`<tr><th>Total</th><th>100%</th><th>${money(m)}</th><th class="green">${money(t)}</th></tr>`;
+ $('addMonth').disabled=count>=6||m<=0;$('addMonth').textContent=count>=6?'Plano de seis meses concluído':`＋ Registar mês ${count+1}`;
+ $('history').className=count?'':'empty';
+ $('history').innerHTML=count?state.history.map((h,i)=>`<div class="history-item"><span>Mês ${i+1} · ${new Date(h.date).toLocaleDateString('pt-PT')}</span><b class="green">${money(h.amount)}</b></div>`).join(''):'Ainda não existem contribuições registadas.';
+}
+$('monthly').addEventListener('input',render);
+$('addMonth').addEventListener('click',()=>{let m=monthly();if(!m||state.history.length>=6)return;funds.forEach(f=>state.balances[f.id]+=m*f.pct/100);state.history.push({amount:m,date:new Date().toISOString()});save();render()});
+$('reset').addEventListener('click',()=>{if(confirm('Tem a certeza de que pretende apagar o histórico e reiniciar todos os fundos?')){state=initial();save();render()}});
+$('export').addEventListener('click',()=>{let rows=[['Setor','Percentagem','Mensal atual','Acumulado'],...funds.map(f=>[f.name,f.pct,monthly()*f.pct/100,state.balances[f.id]]),['Total',100,monthly(),total()]];let csv=rows.map(r=>r.map(v=>'"'+String(v).replaceAll('"','""')+'"').join(';')).join('\n');download('my-finance.csv',csv,'text/csv;charset=utf-8')});
+$('backup').addEventListener('click',()=>download('my-finance-backup.json',JSON.stringify(state,null,2),'application/json'));
+function download(name,data,type){let a=document.createElement('a'),u=URL.createObjectURL(new Blob([data],{type}));a.href=u;a.download=name;a.click();URL.revokeObjectURL(u)}
+let deferredPrompt;$('install').addEventListener('click',async()=>{if(deferredPrompt){deferredPrompt.prompt();deferredPrompt=null;$('install').hidden=true}});
+window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredPrompt=e;$('install').hidden=false});
+if('serviceWorker'in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));
+render();
+</script>
+</body></html>

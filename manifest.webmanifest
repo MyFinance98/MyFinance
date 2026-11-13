@@ -1,0 +1,18 @@
+{
+  "name": "My Finance — Gestão Familiar",
+  "short_name": "My Finance",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#080b0a",
+  "theme_color": "#080b0a",
+  "description": "Gestão financeira familiar com cinco fundos e acompanhamento mensal.",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
