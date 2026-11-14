@@ -1,4 +1,4 @@
-# My Finance 3.0
+# My Finance 5.0
 
 Aplicação PWA de gestão financeira familiar.
 
@@ -20,4 +20,5 @@ Aplicação PWA de gestão financeira familiar.
 Os dados financeiros e documentos ficam guardados localmente neste navegador/dispositivo. Não existe sincronização automática entre dispositivos. Não limpe os dados do navegador nem desinstale a aplicação sem antes confirmar que tem os dados de que precisa.
 
 
-Versão 4.0 — inclui as abas ‘Distribuir capital’ (pré-visualização e confirmação de novo capital) e ‘As minhas contas’ (saldo atual, saldo ideal e diferença). As novas distribuições são acrescentadas aos saldos existentes sem substituir os valores anteriores.
+Versão 5.0 — inclui as abas ‘Distribuir capital’ (pré-visualização e confirmação de novo capital) e ‘As minhas contas’ (saldo atual, saldo ideal e diferença). As novas distribuições são acrescentadas aos saldos existentes sem substituir os valores anteriores.
+- Menu Bento no canto superior esquerdo, com acesso às páginas e atalhos para histórico, relatórios e definições.
